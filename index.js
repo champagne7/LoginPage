@@ -16,7 +16,7 @@ const db = new pg.Client({
     user: "postgres",
     host: "logindb2.cvvlpecj6cf4.us-east-1.rds.amazonaws.com",
     database: "login_details",
-    password: process.env.POST_PASS,
+    password: "bubbleboy970",
     port: 5432
 });
 
