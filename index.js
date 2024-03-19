@@ -14,7 +14,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const db = new pg.Client({
     user: "postgres",
-    host: "localhost",
+    host: "logindb2.cvvlpecj6cf4.us-east-1.rds.amazonaws.com",
     database: "login_details",
     password: process.env.POST_PASS,
     port: 5432
@@ -39,7 +39,7 @@ app.post("/submit", async (req, res) => {
     let name = req.body.name;
     let email = req.body.email;
     let phone = req.body.phone;
-    await db.query("INSERT INTO login_details2 (name, email, phone) values ($1, $2, $3)", [name, email, phone]);
+    await db.query("INSERT INTO login_details (name, email, phone) values ($1, $2, $3)", [name, email, phone]);
     res.send(`<h1>Thank You for registering with us!</h1>`);
 })
 
