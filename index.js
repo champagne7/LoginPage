@@ -3,20 +3,25 @@ import bodyParser from "body-parser";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import pg from "pg";
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const port =  3000;
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+
+
 const db = new pg.Client({
     user: "postgres",
     host: "localhost",
     database: "login_details",
-    password: "bubbleboy970",
+    password: process.env.POST_PASS,
     port: 5432
 });
 
 db.connect();
+
 
 
 app.use(bodyParser.urlencoded({extended: true}));
