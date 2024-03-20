@@ -4,6 +4,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import pg from "pg";
 import dotenv from 'dotenv';
+import path from "path";
 dotenv.config();
 
 const app = express();
@@ -20,11 +21,20 @@ const db = new pg.Client({
     port: 5432
 });
 
+// const db = new pg.Client({
+//     user: "postgres",
+//     host: "localhost",
+//     database: "login_details",
+//     password: "bubbleboy970",
+//     port: 5432
+// });
+
 db.connect();
 
 
-
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.get("/", (req, res) => {
     res.send("Hello");
@@ -42,23 +52,6 @@ app.post("/submit", async (req, res) => {
     await db.query("INSERT INTO login_details (name, email, phone) values ($1, $2, $3)", [name, email, phone]);
     res.send(`<h1>Thank You for registering with us!</h1>`);
 })
-
-// app.post("/submit", async (req, res) => {
-//     console.log("submit clicked");
-//     console.log(req.body);
-//     let a = [
-//         {
-//           id: 1,
-//           name: 'Tanya',
-//           email: 'rishiavinash01@gmail.com',
-//           phone: '9515178983'
-//         }
-//       ];
-//     const result = await db.query("SELECT * from login_details2");
-//     console.log(result.rows);
-//     a = result.rows;
-//     res.send(a);
-// });
 
 
 app.listen(port, ()=>{
